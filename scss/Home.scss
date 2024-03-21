@@ -8,32 +8,11 @@ body {
 }
 .big {
   display: flex;
-  .mini1 {
-    width: 97px;
-    height: 963px;
-    gap: 0px;
-    opacity: 0px;
-    background-color: #5b5ce2;
-    box-shadow: 10px 0px 50px 0px #0000000d;
-    display: flex;
-    flex-direction: column;
-    padding-top: 30px;
-    padding-left: 20px;
-    img {
-      width: 32px;
-      height: 32px;
-    }
-
-    .nav-i {
-      margin-top: 55px;
-    }
-  }
   .mini2 {
+    margin-left: 77px;
     main {
       .s1 {
-        width: 1480px;
-        height: 80px;
-        left: 97px;
+        width: 1460px;
         gap: 0px;
         opacity: 0px;
         box-shadow: 0px 5px 40px 0px #2121210d;
@@ -56,32 +35,29 @@ body {
       }
       .s2 {
         background-color: #eeeef5;
-        width: 1480px;
+        width: 1460px;
         height: 883px;
         left: -0px;
         gap: 0px;
         opacity: 0px;
         padding-top: 40px;
         padding-left: 40px;
-        table {
-          width: 1300px;
-          height: 587px;
-          top: 120px;
-          left: 137px;
-          gap: 0px;
-          opacity: 0px;
-          border-radius: 12px;
-          background-color: white;
-          padding-left: 24px;
-          padding-right: 25px;
-          margin-top: 30px;
-          .tab-in {
-            h1 {
-              margin-top: 40px;
-            }
+        padding-right: 40px;
+        .s2Big {
+          background-color: #ffffff;
+          // height: 100%;
+          border-radius: 5px;
+          .bigFl {
             display: flex;
             justify-content: space-between;
+            padding-left: 15px;
+            padding-right: 15px;
+            h1 {
+              margin-top: 44px;
+            }
             input {
+              outline: none;
+              margin-top: 30px;
               width: 250px;
               height: 40px;
               top: 150px;
@@ -92,48 +68,90 @@ body {
               padding-left: 20px;
               opacity: 0px;
               background-color: #f7f7ff;
-              margin-top: 35px;
-              outline: none;
             }
           }
-          thead {
-            .pro {
-              display: flex;
-              gap: 40px;
-              .th1 {
-                margin-left: 40px;
-              }
-              .th2 {
-                margin-left: 200px;
-              }
-              .th3 {
-                margin-left: 200px;
-              }
-              .th4 {
-                margin-left: 170px;
-              }
-            }
-          }
-          tbody {
-            .produ {
-              display: flex;
-              gap: 40px;
-              margin-top: 30px;
-              .td1 {
-                margin-left: 60px;
-              }
-              .td2 {
-                margin-left: 235px;
-              }
-              .td3 {
-                margin-left: 210px;
-              }
-              .td4 {
-                margin-left: 200px;
-              }
-            }
+          .tab {
+            margin-top: 50px;
+            padding-left: 30px;
+            padding-right: 30px;
+            // tbody {
+            //   display: flex;
+            //   flex-direction: column;
+            // }
           }
         }
+
+        // table {
+        //   width: 1300px;
+        //   height: 587px;
+        //   top: 120px;
+        //   left: 137px;
+        //   gap: 0px;
+        //   opacity: 0px;
+        //   border-radius: 12px;
+        //   background-color: white;
+        //   padding-left: 24px;
+        //   padding-right: 25px;
+        //   margin-top: 30px;
+        //   .tab-in {
+        //     h1 {
+        //       margin-top: 40px;
+        //     }
+        //     display: flex;
+        //     justify-content: space-between;
+        //     input {
+        //       width: 250px;
+        //       height: 40px;
+        //       top: 150px;
+        //       left: 1041px;
+        //       gap: 0px;
+        //       border-radius: 12px;
+        //       border: none;
+        //       padding-left: 20px;
+        //       opacity: 0px;
+        //       background-color: #f7f7ff;
+        //       margin-top: 35px;
+        //       outline: none;
+        //     }
+        //   }
+        //   thead {
+        //     .pro {
+        //       display: flex;
+        //       gap: 40px;
+        //       .th1 {
+        //         margin-left: 40px;
+        //       }
+        //       .th2 {
+        //         margin-left: 200px;
+        //       }
+        //       .th3 {
+        //         margin-left: 200px;
+        //       }
+        //       .th4 {
+        //         margin-left: 170px;
+        //       }
+        //     }
+        //   }
+        //   tbody {
+        //     .produ {
+        //       display: flex;
+        //       gap: 40px;
+        //       margin-top: 30px;
+        //       .td1 {
+        //         margin-left: 60px;
+        //       }
+        //       .td2 {
+        //         margin-left: 235px;
+        //       }
+        //       .td3 {
+        //         margin-left: 210px;
+        //       }
+        //       .td4 {
+        //         margin-left: 200px;
+        //       }
+        //     }
+        //   }
+        // }
         .s2AddBut {
           color: white;
           font-size: 14px;

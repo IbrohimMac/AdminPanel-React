@@ -3,8 +3,9 @@ import React from "react";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "./components/Home";
-import Add from "./components/Add";
+
 const App = () => {
   return (
     <div>
@@ -12,7 +13,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/" element={<Home />} />
-          <Route path="/Add" element={<Add />} />
+          <Route path="/Sidebar" element={<Sidebar />} />
         </Routes>
       </Router>
     </div>

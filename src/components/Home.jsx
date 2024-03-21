@@ -1,11 +1,42 @@
 import React, { useEffect, useState } from "react";
 import "../../scss/Home.scss";
 import { Link } from "react-router-dom";
-// import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
-import i1 from "../../public/nav1.svg";
-import i2 from "../../public/nav2.svg";
-import i3 from "../../public/nav3.svg";
-const Home = () => {
+import "bootstrap/dist/css/bootstrap.css";
+import { FiEdit } from "react-icons/fi";
+import { RiDeleteBin2Line } from "react-icons/ri";
+import Sidebar from "../components/Sidebar/Sidebar";
+
+///// MODAL /////
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+
+/////
+
+const Home = ({ addContact }) => {
+  /// ADD ////
+  const [parce, setParce] = useState({
+    title: "",
+    brand: "",
+    price: "",
+  });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addContact(parce);
+    setParce({
+      title: "",
+      brand: "",
+      price: "",
+    });
+  };
+  ////
+
+  /// MODAL //////
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  ///
   const [panel, setPanel] = useState([]);
 
   useEffect(() => {
@@ -20,24 +51,11 @@ const Home = () => {
     };
     fetchPanel();
   }, []);
+
   return (
     <div>
       <div className="big">
-        <div className="mini1">
-          <Link to="/">
-            <img src={i1} alt="" />
-          </Link>
-          <Link to="/">
-            <div className="nav-i">
-              <img src={i2} alt="" />
-            </div>
-          </Link>
-          <Link to="/Add">
-            <div className="nav-i">
-              <img src={i3} alt="" />
-            </div>
-          </Link>
-        </div>
+        <Sidebar />
         <div className="mini2">
           <main>
             <section className="s1">
@@ -45,47 +63,136 @@ const Home = () => {
               <p>Главная / Товары</p>
             </section>
             <section className="s2">
-              <table className="table">
-                <div className="tab-in">
-                  <h1>Все товары (5)</h1>
+              <div className="s2Big">
+                <div className="bigFl">
+                  <h1>Все товары ({panel.length}) </h1>
                   <input type="search" placeholder="Поиск" />
                 </div>
-                <tbody>
-                  <thead>
-                    <tr>
-                      <div className="pro">
-                        <th className="th1">Наименование</th>
-                        <th className="th2">Бренд</th>
-                        <th className="th3">Цена</th>
-                        <th className="th4">Цена со скидкой</th>
-                      </div>
-                    </tr>
-                  </thead>
-                </tbody>
-                <tbody>
-                  <tr>
-                    <td>
+                <div className="tab">
+                  <table className="table table-striped table-hover p-4">
+                    <thead>
+                      <tr>
+                        <th scope="col">Наименование</th>
+                        <th scope="col">Бренд</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Цена со скидкой</th>
+                      </tr>
+                    </thead>
+                    <tbody>
                       {panel.length > 0 && (
                         <>
                           {panel.map((panel) => (
-                            <div className="produ">
-                              <td className="td1">Товар : {panel.id}</td>
-                              <td className="td2">{panel.brand}</td>
-                              <td className="td3">{panel.price}</td>
-                              <td className="td4">
+                            <tr>
+                              <th className="text-start"> {panel.title}</th>
+                              <th className="fw-normal">{panel.brand}</th>
+                              <th className="fw-normal">{panel.price}</th>
+                              <th className="fw-normal">
                                 {panel.discountPercentage}
-                              </td>
-                            </div>
+                              </th>
+                              <th>
+                                <div className="d-flex gap-3">
+                                  <FiEdit />
+                                  <RiDeleteBin2Line />
+                                </div>
+                              </th>
+                              {/* <th>
+                              </th> */}
+                            </tr>
                           ))}
                         </>
                       )}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <Link to="/Add">
-                <button className="s2AddBut">+ Новый товар</button>
-              </Link>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <Button
+                variant="primary"
+                onClick={handleShow}
+                className="s2AddBut"
+              >
+                + Новый товар
+              </Button>
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Add Product</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form onSubmit={onSubmit}>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Наименование</Form.Label>
+                      <Form.Control
+                        type="name"
+                        placeholder="Iphone / Samsung"
+                        autoFocus
+                        value={parce.name}
+                        onChange={(e) =>
+                          setParce({ ...parce, name: e.target.value })
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Бренд *</Form.Label>
+                      <Form.Control
+                        type="brand"
+                        placeholder="Apple / Huawei"
+                        autoFocus
+                        value={parce.brand}
+                        onChange={(e) =>
+                          setParce({ ...parce, brand: e.target.value })
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlTextarea1"
+                    >
+                      <Form.Label>Цена</Form.Label>
+                      <Form.Control
+                        as="input"
+                        type="number"
+                        rows={3}
+                        value={parce.number}
+                        placeholder="$$$"
+                        onChange={(e) =>
+                          setParce({ ...parce, number: e.target.value })
+                        }
+                      />
+                    </Form.Group>
+
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlTextarea1"
+                    >
+                      <Form.Label>Цена со скидкой</Form.Label>
+                      <Form.Control
+                        as="input"
+                        type="num"
+                        rows={3}
+                        value={parce.num}
+                        placeholder="$$"
+                        onChange={(e) =>
+                          setParce({ ...parce, num: e.target.value })
+                        }
+                      />
+                    </Form.Group>
+                  </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={handleClose}>
+                    Save Changes
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </section>
           </main>
         </div>
