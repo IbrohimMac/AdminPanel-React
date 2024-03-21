@@ -6,19 +6,19 @@ import i1 from "../../public/nav1.svg";
 import i2 from "../../public/nav2.svg";
 import i3 from "../../public/nav3.svg";
 const Home = () => {
-  const [products, setProducts] = useState([]);
+  const [panel, setPanel] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchPanel = async () => {
       try {
         const res = await fetch("http://localhost:3000/products");
         const Data = await res.json();
-        setProducts(Data);
+        setPanel(Data);
       } catch (error) {
         console.log(error.message);
       }
     };
-    fetchProducts();
+    fetchPanel();
   }, []);
   return (
     <div>
@@ -65,15 +65,15 @@ const Home = () => {
                 <tbody>
                   <tr>
                     <td>
-                      {products.length > 0 && (
+                      {panel.length > 0 && (
                         <>
-                          {products.map((product) => (
+                          {panel.map((panel) => (
                             <div className="produ">
-                              <td className="td1">Товар : {product.id}</td>
-                              <td className="td2">{product.brand}</td>
-                              <td className="td3">{product.price}</td>
+                              <td className="td1">Товар : {panel.id}</td>
+                              <td className="td2">{panel.brand}</td>
+                              <td className="td3">{panel.price}</td>
                               <td className="td4">
-                                {product.discountPercentage}
+                                {panel.discountPercentage}
                               </td>
                             </div>
                           ))}
