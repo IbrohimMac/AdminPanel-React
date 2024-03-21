@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../scss/Add.scss";
 import { Link } from "react-router-dom";
 
@@ -29,7 +29,8 @@ const Add = () => {
             <section className="se2">
               <div className="se2In">
                 <button>Основные</button>
-                <form>
+
+                <form onSubmit={(e) => submit(e)}>
                   <div className="name1">
                     <label htmlFor="name">Название *</label>
                     <input type="name" id="name" placeholder="Name" required />
@@ -43,6 +44,7 @@ const Add = () => {
                       required
                     />
                   </div>
+
                   <div className="price">
                     <div className="name3">
                       <label htmlFor="number"> Цена </label>
@@ -67,8 +69,12 @@ const Add = () => {
               </div>
               <div className="se2End">
                 <div className="endButs">
+                  {/* <Link to="/"> */}
                   <button className="b1">Сохранить</button>
+                  {/* </Link> */}
+                  {/* <Link to="/"> */}
                   <button className="b2">Отмена</button>
+                  {/* </Link> */}
                 </div>
               </div>
             </section>

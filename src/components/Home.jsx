@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../scss/Home.scss";
 import { Link } from "react-router-dom";
-
+// import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 import i1 from "../../public/nav1.svg";
 import i2 from "../../public/nav2.svg";
 import i3 from "../../public/nav3.svg";
