@@ -40,7 +40,7 @@ const Add = ({ user }) => {
                 <p>Название *</p>
               </label>
               <input
-                type="id"
+                type="number"
                 id="id"
                 className="form-control w-75 mb-3"
                 required
@@ -101,7 +101,7 @@ const Add = ({ user }) => {
           </div>
           <div className="buts">
             <Link to="/">
-              <button className="but1" type="submit" onClick={addNew}>
+              <button type="submit" className="but1" onClick={addNew}>
                 Save
               </button>
             </Link>

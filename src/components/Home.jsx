@@ -5,21 +5,21 @@ import "bootstrap/dist/css/bootstrap.css";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import Sidebar from "../components/Sidebar/Sidebar";
-// import Loader from "../components/Loader/Loader";
-
 import axios from "axios";
-///// MODAL /////
+import RiseLoader from "react-spinners/RiseLoader";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-/////
 
 const Home = ({}) => {
-  1; /// MODAL //////
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  // ///
+  ///////// LOADER /////////////
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  }, []);
+  /////////////
+
   const [panel, setPanel] = useState([]);
 
   /////////// DELETE ////////////////////
@@ -58,83 +58,101 @@ const Home = ({}) => {
 
   return (
     <div>
-      <div className="big">
-        <Sidebar />
-        <div className="mini2">
-          <main>
-            <section className="s1">
-              <h1>Товары</h1>
-              <p>Главная / Товары</p>
-            </section>
-            <section className="s2">
-              <div className="s2Big">
-                <div className="bigFl">
-                  <h1>Все товары ({panel.length}) </h1>
-                  <input
-                    type="search"
-                    placeholder="Поиск"
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                </div>
-                <div className="tab">
-                  <table className="table table-striped table-hover p-4">
-                    <thead>
-                      <tr>
-                        <th scope="col">Наименование</th>
-                        <th scope="col">Бренд</th>
-                        <th scope="col">Цена</th>
-                        <th scope="col">Цена со скидкой</th>
-                        <td scope="col">Edit / Delete</td>
-                      </tr>
-                    </thead>
-                    {panel.length > 0 && (
-                      <tbody>
-                        {panel
-                          // .filter((panel) =>
-                          //   panel.brand.setSearch.toUpperCase()
-                          // )
-                          .map((panel) => (
-                            <>
-                              <tr>
-                                <th className="text-start">
-                                  Товар: {panel.id}
-                                </th>
-                                <th className="fw-normal">{panel.brand}</th>
-                                <th className="fw-normal">{panel.price}</th>
-                                <th className="fw-normal">
-                                  {panel.discountPercentage}
-                                </th>
+      {loading ? (
+        <RiseLoader
+          className="loader"
+          color={"#36d7b7"}
+          loading={loading}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      ) : (
+        <div className="big">
+          <Sidebar />
+          <div className="mini2">
+            <main>
+              <section className="s1">
+                <h1>Товары</h1>
+                <p>Главная / Товары</p>
+              </section>
+              <section className="s2">
+                <div className="s2Big">
+                  <div className="bigFl">
+                    <h1>Все товары ({panel.length}) </h1>
+                    <input
+                      type="search"
+                      placeholder="Поиск"
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                  </div>
+                  <div className="tab">
+                    <table className="table table-striped table-hover p-4">
+                      <thead>
+                        <tr>
+                          <th scope="col">Наименование</th>
+                          <th scope="col">Бренд</th>
+                          <th scope="col">Цена</th>
+                          <th scope="col">Цена со скидкой</th>
+                          <td scope="col">Edit / Delete</td>
+                        </tr>
+                      </thead>
+                      {panel.length > 0 && (
+                        <tbody>
+                          {panel
+                            //  .filter((panel) => panel.id.toLowerCase(search.toLowerCase()) )
+                            .filter(
+                              (panel) =>
+                                panel.id
+                                  .toLowerCase()
+                                  .includes(search.toLowerCase()) ||
+                                panel.brand
+                                  .toLowerCase()
+                                  .includes(search.toLowerCase())
+                            )
+                            .map((panel) => (
+                              <>
+                                <tr>
+                                  <th className="text-start">
+                                    Товар: {panel.id}
+                                  </th>
+                                  <th className="fw-normal">{panel.brand}</th>
+                                  <th className="fw-normal">{panel.price}</th>
+                                  <th className="fw-normal">
+                                    {panel.discountPercentage}
+                                  </th>
 
-                                <th>
-                                  <div className="d-flex gap-3">
-                                    <FiEdit />
-                                    <RiDeleteBin2Line
-                                      className="iconCU"
-                                      onClick={() =>
-                                        confirm(" Are you sure Delete?")
-                                          ? deleteItem(panel.id)
-                                          : false
-                                      }
-                                    />
-                                  </div>
-                                </th>
-                              </tr>
-                            </>
-                          ))}
-                      </tbody>
-                    )}
-                  </table>
+                                  <th>
+                                    <div className="d-flex gap-3">
+                                      <FiEdit />
+                                      <RiDeleteBin2Line
+                                        className="iconCU"
+                                        onClick={() =>
+                                          confirm(" Are you sure Delete?")
+                                            ? deleteItem(panel.id)
+                                            : false
+                                        }
+                                      />
+                                    </div>
+                                  </th>
+                                </tr>
+                              </>
+                            ))}
+                        </tbody>
+                      )}
+                    </table>
+                  </div>
                 </div>
-              </div>
-              <Link to="/Add">
-                <Button variant="primary" className="btn btn-success mt-5 ">
-                  + Новый товар
-                </Button>
-              </Link>
-            </section>
-          </main>
+                <Link to="/Add">
+                  <Button variant="primary" className="btn btn-success mt-5 ">
+                    + Новый товар
+                  </Button>
+                </Link>
+              </section>
+            </main>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

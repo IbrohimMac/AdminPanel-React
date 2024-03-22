@@ -140,6 +140,18 @@
       "brand": "Apple",
       "price": "2000",
       "discountPercentage": "1800"
+    },
+    {
+      "0": {
+        "id": "",
+        "brand": "",
+        "price": "",
+        "discountPercentage": ""
+      },
+      "id": "234",
+      "brand": "hivi",
+      "price": "42",
+      "discountPercentage": "53"
     }
   ]
 }
