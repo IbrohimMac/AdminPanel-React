@@ -5,39 +5,44 @@ import "bootstrap/dist/css/bootstrap.css";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import Sidebar from "../components/Sidebar/Sidebar";
+import Add from "../components/Add";
 
+import axios from "axios";
 ///// MODAL /////
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-
 /////
 
-const Home = ({ addContact }) => {
-  /// ADD ////
-  const [parce, setParce] = useState({
-    title: "",
-    brand: "",
-    price: "",
-  });
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    addContact(parce);
-    setParce({
-      title: "",
-      brand: "",
-      price: "",
-    });
-  };
-  ////
-
+const Home = () => {
   /// MODAL //////
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   ///
   const [panel, setPanel] = useState([]);
+
+  /////////// DELETE ////////////////////
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
+  const fetchItems = async () => {
+    const response = await axios.get("http://localhost:3000/products");
+    setPanel(response.data);
+  };
+
+  const deleteItem = async (id) => {
+    await axios.delete(`http://localhost:3000/products/${id}`);
+    fetchItems();
+  };
+  //////////////////////////
+
+  //////////////////////////  Search /////////////////////////
+
+  const [searchTerm, setSearchTerm] = useState("");
+  ////////////////////////////////
 
   useEffect(() => {
     const fetchPanel = async () => {
@@ -66,7 +71,11 @@ const Home = ({ addContact }) => {
               <div className="s2Big">
                 <div className="bigFl">
                   <h1>Все товары ({panel.length}) </h1>
-                  <input type="search" placeholder="Поиск" />
+                  <input
+                    type="search"
+                    placeholder="Поиск"
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
                 </div>
                 <div className="tab">
                   <table className="table table-striped table-hover p-4">
@@ -76,32 +85,46 @@ const Home = ({ addContact }) => {
                         <th scope="col">Бренд</th>
                         <th scope="col">Цена</th>
                         <th scope="col">Цена со скидкой</th>
+                        <td scope="col">Edit / Delete</td>
                       </tr>
                     </thead>
-                    <tbody>
-                      {panel.length > 0 && (
-                        <>
-                          {panel.map((panel) => (
-                            <tr>
-                              <th className="text-start"> {panel.title}</th>
-                              <th className="fw-normal">{panel.brand}</th>
-                              <th className="fw-normal">{panel.price}</th>
-                              <th className="fw-normal">
-                                {panel.discountPercentage}
-                              </th>
-                              <th>
-                                <div className="d-flex gap-3">
-                                  <FiEdit />
-                                  <RiDeleteBin2Line />
-                                </div>
-                              </th>
-                              {/* <th>
-                              </th> */}
-                            </tr>
+                    {panel.length > 0 && (
+                      <tbody>
+                        {panel
+                          .filter((panel) =>
+                            panel.brand
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase())
+                          )
+                          .map((panel) => (
+                            <>
+                              <tr>
+                                <th className="text-start">
+                                  Товар: {panel.id}
+                                </th>
+                                <th className="fw-normal">{panel.brand}</th>
+                                <th className="fw-normal">{panel.price}</th>
+                                <th className="fw-normal">
+                                  {panel.discountPercentage}
+                                </th>
+                                <th>
+                                  <div className="d-flex gap-3">
+                                    <FiEdit />
+                                    <RiDeleteBin2Line
+                                      className="iconCU"
+                                      onClick={() =>
+                                        confirm(" Are you sure Delete?")
+                                          ? deleteItem(panel.id)
+                                          : false
+                                      }
+                                    />
+                                  </div>
+                                </th>
+                              </tr>
+                            </>
                           ))}
-                        </>
-                      )}
-                    </tbody>
+                      </tbody>
+                    )}
                   </table>
                 </div>
               </div>
@@ -109,7 +132,7 @@ const Home = ({ addContact }) => {
               <Button
                 variant="primary"
                 onClick={handleShow}
-                className="s2AddBut"
+                className="btn btn-success mt-5 "
               >
                 + Новый товар
               </Button>
@@ -118,20 +141,16 @@ const Home = ({ addContact }) => {
                   <Modal.Title>Add Product</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <Form onSubmit={onSubmit}>
+                  <Form>
                     <Form.Group
                       className="mb-3"
                       controlId="exampleForm.ControlInput1"
                     >
                       <Form.Label>Наименование</Form.Label>
                       <Form.Control
-                        type="name"
-                        placeholder="Iphone / Samsung"
+                        type="id"
+                        placeholder="1 2 3 ..."
                         autoFocus
-                        value={parce.name}
-                        onChange={(e) =>
-                          setParce({ ...parce, name: e.target.value })
-                        }
                       />
                     </Form.Group>
                     <Form.Group
@@ -143,10 +162,6 @@ const Home = ({ addContact }) => {
                         type="brand"
                         placeholder="Apple / Huawei"
                         autoFocus
-                        value={parce.brand}
-                        onChange={(e) =>
-                          setParce({ ...parce, brand: e.target.value })
-                        }
                       />
                     </Form.Group>
                     <Form.Group
@@ -158,11 +173,7 @@ const Home = ({ addContact }) => {
                         as="input"
                         type="number"
                         rows={3}
-                        value={parce.number}
                         placeholder="$$$"
-                        onChange={(e) =>
-                          setParce({ ...parce, number: e.target.value })
-                        }
                       />
                     </Form.Group>
 
@@ -173,13 +184,9 @@ const Home = ({ addContact }) => {
                       <Form.Label>Цена со скидкой</Form.Label>
                       <Form.Control
                         as="input"
-                        type="num"
+                        type="discountPrice"
                         rows={3}
-                        value={parce.num}
                         placeholder="$$"
-                        onChange={(e) =>
-                          setParce({ ...parce, num: e.target.value })
-                        }
                       />
                     </Form.Group>
                   </Form>
@@ -189,7 +196,7 @@ const Home = ({ addContact }) => {
                     Close
                   </Button>
                   <Button variant="primary" onClick={handleClose}>
-                    Save Changes
+                    Save
                   </Button>
                 </Modal.Footer>
               </Modal>

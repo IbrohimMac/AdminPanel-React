@@ -40,8 +40,8 @@ const sidebar = () => {
               >
                 <Form.Label>Наименование</Form.Label>
                 <Form.Control
-                  type="email"
-                  placeholder="Iphone / Samsung"
+                  type="id"
+                  placeholder="1 2 3 ..."
                   autoFocus
                   required
                 />
@@ -52,7 +52,7 @@ const sidebar = () => {
               >
                 <Form.Label>Бренд *</Form.Label>
                 <Form.Control
-                  type="email"
+                  type="brand"
                   placeholder="Apple / Huawei"
                   autoFocus
                   required
