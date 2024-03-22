@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../../scss/Home.scss";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import Sidebar from "../components/Sidebar/Sidebar";
-import Add from "../components/Add";
 
 import axios from "axios";
 ///// MODAL /////
@@ -14,12 +13,12 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 /////
 
-const Home = () => {
+const Home = ({}) => {
   /// MODAL //////
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  ///
+  // ///
   const [panel, setPanel] = useState([]);
 
   /////////// DELETE ////////////////////
@@ -43,6 +42,10 @@ const Home = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   ////////////////////////////////
+
+  ////////////////////////// ADD ////////////////////
+
+  //////////////////////////
 
   useEffect(() => {
     const fetchPanel = async () => {
@@ -107,6 +110,7 @@ const Home = () => {
                                 <th className="fw-normal">
                                   {panel.discountPercentage}
                                 </th>
+
                                 <th>
                                   <div className="d-flex gap-3">
                                     <FiEdit />
@@ -128,7 +132,6 @@ const Home = () => {
                   </table>
                 </div>
               </div>
-
               <Button
                 variant="primary"
                 onClick={handleShow}
@@ -151,6 +154,7 @@ const Home = () => {
                         type="id"
                         placeholder="1 2 3 ..."
                         autoFocus
+                        required
                       />
                     </Form.Group>
                     <Form.Group
@@ -162,6 +166,7 @@ const Home = () => {
                         type="brand"
                         placeholder="Apple / Huawei"
                         autoFocus
+                        required
                       />
                     </Form.Group>
                     <Form.Group
@@ -171,9 +176,10 @@ const Home = () => {
                       <Form.Label>Цена</Form.Label>
                       <Form.Control
                         as="input"
-                        type="number"
+                        type="price"
                         rows={3}
                         placeholder="$$$"
+                        required
                       />
                     </Form.Group>
 
@@ -184,9 +190,10 @@ const Home = () => {
                       <Form.Label>Цена со скидкой</Form.Label>
                       <Form.Control
                         as="input"
-                        type="discountPrice"
+                        type="discountPercentage"
                         rows={3}
                         placeholder="$$"
+                        required
                       />
                     </Form.Group>
                   </Form>
