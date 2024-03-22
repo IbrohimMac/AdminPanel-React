@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import Sidebar from "../components/Sidebar/Sidebar";
+// import Loader from "../components/Loader/Loader";
 
 import axios from "axios";
 ///// MODAL /////
@@ -14,7 +15,7 @@ import Modal from "react-bootstrap/Modal";
 /////
 
 const Home = ({}) => {
-  /// MODAL //////
+  1; /// MODAL //////
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -39,13 +40,8 @@ const Home = ({}) => {
   //////////////////////////
 
   //////////////////////////  Search /////////////////////////
-
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
   ////////////////////////////////
-
-  ////////////////////////// ADD ////////////////////
-
-  //////////////////////////
 
   useEffect(() => {
     const fetchPanel = async () => {
@@ -77,7 +73,7 @@ const Home = ({}) => {
                   <input
                     type="search"
                     placeholder="Поиск"
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => setSearch(e.target.value)}
                   />
                 </div>
                 <div className="tab">
@@ -94,11 +90,9 @@ const Home = ({}) => {
                     {panel.length > 0 && (
                       <tbody>
                         {panel
-                          .filter((panel) =>
-                            panel.brand
-                              .toLowerCase()
-                              .includes(searchTerm.toLowerCase())
-                          )
+                          // .filter((panel) =>
+                          //   panel.brand.setSearch.toUpperCase()
+                          // )
                           .map((panel) => (
                             <>
                               <tr>
@@ -132,81 +126,11 @@ const Home = ({}) => {
                   </table>
                 </div>
               </div>
-              <Button
-                variant="primary"
-                onClick={handleShow}
-                className="btn btn-success mt-5 "
-              >
-                + Новый товар
-              </Button>
-              <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Add Product</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Form>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput1"
-                    >
-                      <Form.Label>Наименование</Form.Label>
-                      <Form.Control
-                        type="id"
-                        placeholder="1 2 3 ..."
-                        autoFocus
-                        required
-                      />
-                    </Form.Group>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlInput1"
-                    >
-                      <Form.Label>Бренд *</Form.Label>
-                      <Form.Control
-                        type="brand"
-                        placeholder="Apple / Huawei"
-                        autoFocus
-                        required
-                      />
-                    </Form.Group>
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlTextarea1"
-                    >
-                      <Form.Label>Цена</Form.Label>
-                      <Form.Control
-                        as="input"
-                        type="price"
-                        rows={3}
-                        placeholder="$$$"
-                        required
-                      />
-                    </Form.Group>
-
-                    <Form.Group
-                      className="mb-3"
-                      controlId="exampleForm.ControlTextarea1"
-                    >
-                      <Form.Label>Цена со скидкой</Form.Label>
-                      <Form.Control
-                        as="input"
-                        type="discountPercentage"
-                        rows={3}
-                        placeholder="$$"
-                        required
-                      />
-                    </Form.Group>
-                  </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Close
-                  </Button>
-                  <Button variant="primary" onClick={handleClose}>
-                    Save
-                  </Button>
-                </Modal.Footer>
-              </Modal>
+              <Link to="/Add">
+                <Button variant="primary" className="btn btn-success mt-5 ">
+                  + Новый товар
+                </Button>
+              </Link>
             </section>
           </main>
         </div>

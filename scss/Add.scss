@@ -1,0 +1,69 @@
+input {
+  outline: none;
+}
+.addMain {
+  margin-left: 90px;
+  .sec1 {
+    width: 1460px;
+    gap: 0px;
+    opacity: 0px;
+    box-shadow: 0px 5px 40px 0px #2121210d;
+    padding-left: 40px;
+    padding-top: 15px;
+    h1 {
+      color: #212121;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 22.59px;
+      text-align: left;
+    }
+    p {
+      color: #b5b5c3;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 21px;
+      text-align: left;
+    }
+  }
+  .sec2 {
+    background-color: #eeeef5;
+    width: 1450px;
+    height: 883px;
+    left: -0px;
+    gap: 0px;
+    opacity: 0px;
+    padding-top: 40px;
+    padding-left: 30px;
+    padding-right: 40px;
+
+    .brand {
+      width: 764px;
+      height: 44px;
+      gap: 0px;
+      border-radius: 6px 0px 0px 0px;
+      opacity: 0px;
+      margin-top: 50px;
+    }
+    #cent {
+      margin-top: 90px;
+    }
+    .buts {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      .but1 {
+        width: 117px;
+        height: 40px;
+        border-radius: 6px;
+        opacity: 0px;
+        background-color: #1bc58d;
+        cursor: pointer;
+        border: none;
+      }
+      .but1:hover {
+        background-color: #f7f7ff;
+        transition: 0.4s;
+      }
+    }
+  }
+}
